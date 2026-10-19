@@ -17,15 +17,12 @@ In the web explorer, choose two actor names from the suggestions to see their
 shortest connection, the films shared along the route, and original abstract
 film illustrations. The default example connects Kevin Bacon and Tom Hanks.
 
-The browser interface was inspired by the visual approach of my separate
-Connection Atlas prototype, but this explorer applies it to the actor-and-film
-graph and dataset in this repository. The Java command-line game remains
-available as a separate way to query the graph.
-
-I contributed code to the Java game and worked on the browser explorer's design
-and features. I used an AI coding assistant during the browser implementation,
-then tested and refined the results. Dartmouth-provided graph support code is
-identified and attributed below.
+The browser interface takes visual inspiration from my separate Connection
+Atlas prototype and applies that idea to this actor-and-film dataset. I
+contributed code to the Java game and helped shape and build the browser
+explorer, including its design and features. I used an AI coding assistant
+during browser implementation and testing. Dartmouth-provided graph support
+code is identified and attributed in the source files.
 
 ## Java graph project
 
@@ -112,7 +109,9 @@ python3 -m http.server 8000
 
 Then open <http://localhost:8000/web/>. The app loads `actors.txt`,
 `movies.txt`, and `movie-actors.txt` from the repository root; use the
-actor-name suggestions to select valid names.
+actor-name suggestions to select valid names. Actor search ignores
+capitalization and accents, and the explorer cleans up several names that
+were incorrectly encoded in the source data.
 
 ## Commands
 
@@ -159,7 +158,10 @@ The graph and its edge labels are held in memory.
 
 ### Interactive web explorer
 
-These captures show the live explorer using different actor pairs:
+These captures show the live explorer using different actor pairs. The app
+displays actor names from the included dataset; the dataset contains some
+pre-existing name and encoding issues, so a few names may not use their
+canonical spelling.
 
 ![Kevin Bacon to Tom Hanks: one shared-film connection](screenshots/web-one-hop.png)
 

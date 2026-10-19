@@ -50,6 +50,43 @@ function addToIndex(index, key, value) {
   index.set(key, values);
 }
 
+function repairActorName(name) {
+  const codePoints = Array.from(name, (character) => character.codePointAt(0));
+  if (!codePoints.some((codePoint) => codePoint >= 0x80 && codePoint <= 0x9f) ||
+      codePoints.some((codePoint) => codePoint > 0xff)) {
+    return name;
+  }
+
+  try {
+    const bytes = new Uint8Array(codePoints);
+    const repaired = new TextDecoder("utf-8", { fatal: true }).decode(bytes);
+    return repaired
+      .replaceAll("Á", "ç")
+      .replaceAll("¡", "Á")
+      .replaceAll("È", "é")
+      .replaceAll("Ë", "è")
+      .replaceAll("Ì", "í")
+      .replaceAll("Û", "ó")
+      .replaceAll("Ù", "ú")
+      .replaceAll("·", "á")
+      .replaceAll("˙", "ú")
+      .replaceAll("ˆ", "ö")
+      .replaceAll("Ò", "ñ")
+      .normalize("NFC");
+  } catch {
+    return name;
+  }
+}
+
+function normalizeActorName(name) {
+  return repairActorName(name)
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/gi, " ")
+    .trim()
+    .toLocaleLowerCase();
+}
+
 async function fetchDataFile(name) {
   const url = new URL(`../${name}`, window.location.href);
   const response = await fetch(url);
@@ -66,10 +103,11 @@ async function loadDataset() {
     fetchDataFile("movie-actors.txt"),
   ]);
 
-  for (const [actorId, actorName] of parsePipeFile(actorText, "actors.txt", 2)) {
+  for (const [actorId, rawActorName] of parsePipeFile(actorText, "actors.txt", 2)) {
     if (data.actorsById.has(actorId)) throw new Error(`actors.txt contains duplicate actor ID ${actorId}.`);
+    const actorName = repairActorName(rawActorName);
     data.actorsById.set(actorId, actorName);
-    addToIndex(data.actorIdsByName, actorName.toLocaleLowerCase(), actorId);
+    addToIndex(data.actorIdsByName, normalizeActorName(actorName), actorId);
     data.moviesByActor.set(actorId, []);
   }
 
@@ -103,7 +141,7 @@ async function loadDataset() {
 }
 
 function resolveActor(name) {
-  const actorIds = data.actorIdsByName.get(name.trim().toLocaleLowerCase());
+  const actorIds = data.actorIdsByName.get(normalizeActorName(name));
   if (!actorIds?.length) return null;
   return actorIds[0];
 }
