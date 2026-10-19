@@ -22,6 +22,11 @@ Connection Atlas prototype, but this explorer applies it to the actor-and-film
 graph and dataset in this repository. The Java command-line game remains
 available as a separate way to query the graph.
 
+I contributed code to the Java game and worked on the browser explorer's design
+and features. I used an AI coding assistant during the browser implementation,
+then tested and refined the results. Dartmouth-provided graph support code is
+identified and attributed below.
+
 ## Java graph project
 
 The Java program models actors as vertices and connects two actors when they
