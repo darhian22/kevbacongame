@@ -151,3 +151,15 @@ The graph and its edge labels are held in memory.
 ![Actors returned by the separation query and examples of unreachable actors](screenshots/separation-and-unreachable.png)
 
 *The separation query lists actors within a chosen number of steps, while the final command displays actors disconnected from the current center.*
+
+### Interactive web explorer
+
+These captures show the live explorer using different actor pairs:
+
+![Kevin Bacon to Tom Hanks: one shared-film connection](screenshots/web-one-hop.png)
+
+*The explorer finds Tom Hanks one step from Kevin Bacon through Apollo 13 (1995).*
+
+![Kevin Bacon to John Mills: a three-step co-star route](screenshots/web-multi-hop.png)
+
+*The explorer traces a three-step route through Jim Cummings and Rowan Atkinson, with each shared film shown on the map and in the film cards.*
