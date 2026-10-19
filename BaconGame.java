@@ -291,14 +291,25 @@ public class BaconGame {
      */
     public static void main(String[] args)
             throws IOException {
-        // Initialize game with dataset and default center
+        if (args.length != 0 && args.length != 3) {
+            System.err.println(
+                    "Usage: java BaconGame [actors.txt movies.txt movie-actors.txt]");
+            return;
+        }
+
+        String actorsFile =
+                args.length == 3 ? args[0] : "demo-data/actors.txt";
+        String moviesFile =
+                args.length == 3 ? args[1] : "demo-data/movies.txt";
+        String movieActorsFile =
+                args.length == 3 ? args[2] : "demo-data/movie-actors.txt";
+
         BaconGame game = new BaconGame(
-                "actors.txt",
-                "movies.txt",
-                "movie-actors.txt",
+                actorsFile,
+                moviesFile,
+                movieActorsFile,
                 "Kevin Bacon");
 
-        // Start interactive session
         game.play();
     }
 }

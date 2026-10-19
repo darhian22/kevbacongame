@@ -31,14 +31,13 @@ are excluded from that calculation.
 ## Requirements
 
 - Java 8 or newer
-- The Dartmouth CS 10 graph support classes `Graph.java` and
-  `AdjacencyMapGraph.java`, which this project uses but does not include
-- Three compatible input files in the program's working directory:
-  `actors.txt`, `movies.txt`, and `movie-actors.txt`
+- The included `Graph.java` and `AdjacencyMapGraph.java` graph support classes
+- The included small, fictional dataset in `demo-data/` for trying the game
+- The larger CS 10 dataset at the project root for exploring the full graph
 
-The data files and course support library are not included in this repository.
-Obtain them from the corresponding course materials and keep the graph support
-classes alongside these Java files when compiling.
+The graph support classes are from Dartmouth CS 10 and retain their original
+attribution in the source files. The larger dataset is included for users who
+are permitted to use and redistribute the course materials.
 
 Each input file is pipe-delimited:
 
@@ -50,17 +49,23 @@ Each input file is pipe-delimited:
 
 ## Build and run
 
-From the directory containing these files, the two graph support classes, and
-the three data files, compile and run:
+From the project directory, compile and run with the included demo data:
 
 ```sh
 javac Graph.java AdjacencyMapGraph.java BaconGraphBuilder.java GraphLibrary.java BaconGame.java
 java BaconGame
 ```
 
-`BaconGame` loads the three files by their names from the current working
-directory and initially sets Kevin Bacon as the center. If your dataset uses a
-different default actor, change the `initialCenter` argument in `main`.
+The demo uses fictional actors and movie titles and starts with Kevin Bacon as
+the center. To use the included full dataset, pass its three file paths in this
+order:
+
+```sh
+java BaconGame actors.txt movies.txt movie-actors.txt
+```
+
+Only redistribute or reuse the course support code and dataset if permitted by
+the applicable course policies.
 
 ## Commands
 
@@ -86,3 +91,21 @@ Breadth-first search takes `O(V + E)` time for a graph with `V` actors and `E`
 costar relationships. Building a movie's costar relationships considers every
 pair of cast members, taking `O(k^2)` work for a movie with `k` listed actors.
 The graph and its edge labels are held in memory.
+
+## Screenshots
+
+![Interactive Kevin Bacon game running against a small sample graph](screenshots/interactive-demo.png)
+
+*This sample session demonstrates shortest paths, unreachable actors, center changes, center rankings, and clear responses to invalid commands.*
+
+![Shortest path and center ranking results using the larger course dataset](screenshots/full-dataset-paths.png)
+
+*Tom Hanks is one movie away from Kevin Bacon in this dataset; the session also shows changing the center and ranking actors by average separation.*
+
+![Actors returned by the degree-range query](screenshots/degree-range.png)
+
+*The degree query lists actors whose number of costars falls within the requested range.*
+
+![Actors returned by the separation query and examples of unreachable actors](screenshots/separation-and-unreachable.png)
+
+*The separation query lists actors within a chosen number of steps, while the final command displays actors disconnected from the current center.*
