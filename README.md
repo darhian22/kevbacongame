@@ -6,7 +6,7 @@ actor-and-film dataset to find shortest co-star paths.
 
 ## Start here
 
-- **Try the live web explorer:** [Kevin Bacon Graph Explorer](https://darhian22.github.io/kevbacongame/)
+- **Try the live web explorer:** [Kevin Bacon Graph Explorer](https://darhian22.github.io/kevbacongame/web/)
 - **Run it locally:** clone or download this repository, then follow the
   [web explorer instructions](#interactive-web-explorer). All code and data
   needed by the explorer are in this repository; no separate project is
@@ -94,7 +94,7 @@ the applicable course policies.
 
 ## Interactive web explorer
 
-The [live explorer](https://darhian22.github.io/kevbacongame/) is hosted with
+The [live explorer](https://darhian22.github.io/kevbacongame/web/) is hosted with
 GitHub Pages. To run the same app locally, start the server from the repository
 root:
 
@@ -109,9 +109,11 @@ python3 -m http.server 8000
 
 Then open <http://localhost:8000/web/>. The app loads `actors.txt`,
 `movies.txt`, and `movie-actors.txt` from the repository root; use the
-actor-name suggestions to select valid names. Actor search ignores
-capitalization and accents, and the explorer cleans up several names that
-were incorrectly encoded in the source data.
+actor-name suggestions to select valid names. The web explorer displays actor
+names using plain ASCII letters, so names such as Ángel (II) Ramírez, Álex
+Casanovas, and Andrés Pajares appear as Angel (II) Ramirez, Alex Casanovas,
+and Andres Pajares. Search ignores capitalization and accents, including when
+the source data contains incorrectly encoded names.
 
 ## Commands
 
@@ -159,9 +161,8 @@ The graph and its edge labels are held in memory.
 ### Interactive web explorer
 
 These captures show the live explorer using different actor pairs. The app
-displays actor names from the included dataset; the dataset contains some
-pre-existing name and encoding issues, so a few names may not use their
-canonical spelling.
+displays actor names from the included dataset with accents normalized to
+plain ASCII for consistent display. Search remains accent-insensitive.
 
 ![Kevin Bacon to Tom Hanks: one shared-film connection](screenshots/web-one-hop.png)
 

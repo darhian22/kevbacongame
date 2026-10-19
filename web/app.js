@@ -52,7 +52,8 @@ function addToIndex(index, key, value) {
 
 function repairActorName(name) {
   const codePoints = Array.from(name, (character) => character.codePointAt(0));
-  if (!codePoints.some((codePoint) => codePoint >= 0x80 && codePoint <= 0x9f) ||
+  const hasMojibakeMarker = /[ÂÃ][\u0080-\u00ff]/u.test(name);
+  if ((!hasMojibakeMarker && !codePoints.some((codePoint) => codePoint >= 0x80 && codePoint <= 0x9f)) ||
       codePoints.some((codePoint) => codePoint > 0xff)) {
     return name;
   }
@@ -83,10 +84,24 @@ function repairActorName(name) {
   }
 }
 
-function normalizeActorName(name) {
+function toAsciiActorName(name) {
   return repairActorName(name)
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
+    .replaceAll("Æ", "AE")
+    .replaceAll("æ", "ae")
+    .replaceAll("Œ", "OE")
+    .replaceAll("œ", "oe")
+    .replaceAll("Ø", "O")
+    .replaceAll("ø", "o")
+    .replaceAll("ß", "ss")
+    .replaceAll("Þ", "Th")
+    .replaceAll("þ", "th")
+    .replace(/[^\x00-\x7f]/g, "");
+}
+
+function normalizeActorName(name) {
+  return toAsciiActorName(name)
     .replace(/[^a-z0-9]+/gi, " ")
     .trim()
     .toLocaleLowerCase();
@@ -110,7 +125,7 @@ async function loadDataset() {
 
   for (const [actorId, rawActorName] of parsePipeFile(actorText, "actors.txt", 2)) {
     if (data.actorsById.has(actorId)) throw new Error(`actors.txt contains duplicate actor ID ${actorId}.`);
-    const actorName = repairActorName(rawActorName);
+    const actorName = toAsciiActorName(rawActorName);
     data.actorsById.set(actorId, actorName);
     addToIndex(data.actorIdsByName, normalizeActorName(actorName), actorId);
     data.moviesByActor.set(actorId, []);
