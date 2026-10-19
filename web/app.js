@@ -72,6 +72,11 @@ function repairActorName(name) {
       .replaceAll("˙", "ú")
       .replaceAll("ˆ", "ö")
       .replaceAll("Ò", "ñ")
+      .replaceAll("…coffey", "Écoffey")
+      .replaceAll("…mile Genest", "Émile Genest")
+      .replaceAll("…va Igó", "Éva Igó")
+      .replaceAll("…milie Dequenne", "Émilie Dequenne")
+      .replaceAll("…lodie Bouchez", "Élodie Bouchez")
       .normalize("NFC");
   } catch {
     return name;
