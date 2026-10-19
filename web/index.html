@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Explore shortest co-star paths through the Kevin Bacon actor network.">
+    <title>Kevin Bacon Graph Explorer</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Kevin Bacon Graph Explorer home">
+        <span class="brand-mark" aria-hidden="true">KB</span>
+        <span>Kevin Bacon Graph Explorer</span>
+      </a>
+      <p class="topbar-note">From graph algorithms to an interactive map</p>
+    </header>
+
+    <main class="layout">
+      <section class="intro" aria-labelledby="page-title">
+        <p class="eyebrow">GRAPH THEORY / INTERACTIVE EXPLORER</p>
+        <h1 id="page-title">Every film connection tells a story.</h1>
+        <p class="intro-copy">Explore how actors are connected through shared films. Choose two actors to trace their shortest co-star route, then follow each collaboration across the map.</p>
+      </section>
+
+      <section class="workspace" aria-label="Actor connection explorer">
+        <aside class="sidebar">
+          <div class="panel-heading">
+            <span class="step-number">01</span>
+            <div>
+              <h2>Trace a connection</h2>
+              <p>Search the dataset by actor name.</p>
+            </div>
+          </div>
+
+          <form id="route-form" class="form-stack">
+            <label for="start-actor">From</label>
+            <input id="start-actor" name="start" list="actor-options" autocomplete="off" value="Kevin Bacon" required>
+            <label for="end-actor">To</label>
+            <input id="end-actor" name="end" list="actor-options" autocomplete="off" value="Tom Hanks" required>
+            <datalist id="actor-options"></datalist>
+            <button class="button button-primary" type="submit">Find shortest path <span aria-hidden="true">↗</span></button>
+          </form>
+
+          <div class="route-result" aria-live="polite">
+            <p class="result-kicker">SHORTEST CONNECTION</p>
+            <p id="route-summary">Loading the actor and film dataset…</p>
+            <ol id="route-steps" class="route-steps"></ol>
+          </div>
+
+          <section class="featured-actor" aria-label="Featured actor">
+            <img src="kevin-bacon.jpg" alt="Kevin Bacon" width="369" height="461">
+            <div class="featured-copy">
+              <p class="result-kicker">CENTER OF THE UNIVERSE</p>
+              <h2>Kevin Bacon</h2>
+              <a href="https://commons.wikimedia.org/wiki/File:Kevin_Bacon.jpg" target="_blank" rel="noreferrer">Photo: SAGIndie, Hollywood · CC BY 2.0</a>
+            </div>
+          </section>
+
+          <div class="legend">
+            <p class="legend-title">MAP KEY</p>
+            <p><span class="legend-dot" aria-hidden="true"></span> An actor</p>
+            <p><span class="legend-line" aria-hidden="true"></span> A shared film</p>
+          </div>
+        </aside>
+
+        <div class="map-panel">
+          <div class="map-toolbar">
+            <div>
+              <p class="eyebrow">THE CO-STAR NETWORK</p>
+              <h2>Six degrees, one route</h2>
+            </div>
+            <div id="map-count" class="map-count" aria-live="polite">Loading dataset…</div>
+          </div>
+          <div class="map-scroll">
+            <svg id="network-map" viewBox="0 0 900 360" role="img" aria-labelledby="map-title map-description">
+              <title id="map-title">Shortest path through the actor co-star network</title>
+              <desc id="map-description">Actors are connected by lines labeled with films they shared.</desc>
+              <g id="edge-layer"></g>
+              <g id="node-layer"></g>
+            </svg>
+          </div>
+          <p class="map-hint">Each step is one shared-film connection. Scroll horizontally to follow longer paths.</p>
+          <section class="film-gallery" aria-labelledby="film-gallery-title">
+            <div class="gallery-heading">
+              <p class="eyebrow">THE SHARED CREDITS</p>
+              <h3 id="film-gallery-title">Films along this route</h3>
+            </div>
+            <div id="film-cards" class="film-cards" aria-live="polite"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="reflection" aria-labelledby="reflection-title">
+        <p class="eyebrow">FROM ASSIGNMENT TO EXPLORATION</p>
+        <h2 id="reflection-title">A graph you can follow, not just query.</h2>
+        <p>The original CS 10 project models actors as vertices and shared films as edges, then uses breadth-first search to find a shortest path. I built this browser interface to make that result visible: each actor is a node, each film is a labeled connection, and the highlighted route shows the algorithm's answer step by step.</p>
+        <p>The visual exploration was inspired by my separate Connection Atlas prototype. Both interfaces let someone choose endpoints and follow a shortest route through a network; this version applies that interaction to the actor-and-film graph from my submitted project.</p>
+      </section>
+
+      <footer class="footer">
+        <p>Actor and film data are loaded from the included project dataset. The Java command-line game remains available alongside this explorer.</p>
+        <a class="text-button" href="../README.md">Project notes and CLI instructions</a>
+      </footer>
+    </main>
+  </body>
+</html>

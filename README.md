@@ -67,6 +67,30 @@ java BaconGame actors.txt movies.txt movie-actors.txt
 Only redistribute or reuse the course support code and dataset if permitted by
 the applicable course policies.
 
+## Interactive web explorer
+
+The repository also includes a browser-based route explorer inspired by the
+visual approach in my separate Connection Atlas prototype. It applies that
+interaction to this actor-and-film graph: enter two actor names to see the
+shortest co-star path, with each shared film shown on the highlighted route.
+This front end reads the same pipe-delimited files as the Java program and
+reimplements breadth-first search in browser JavaScript; the Java CLI remains
+available separately.
+
+The web explorer includes a Kevin Bacon portrait credited under CC BY 2.0 and
+original abstract SVG title-card illustrations for films on the selected path.
+The illustrations are not movie posters or stills; see [`web/ASSETS.md`](web/ASSETS.md)
+for attribution and asset details.
+
+From the repository root, start a local static web server:
+
+```sh
+python3 -m http.server 8000
+```
+
+Then open `http://localhost:8000/web/`. Use the browser's actor-name
+suggestions to select names from the dataset.
+
 ## Commands
 
 At the game prompt, enter one of the following:
