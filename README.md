@@ -1,9 +1,32 @@
-# Kevin Bacon Graph
+# Kevin Bacon Graph Explorer
 
-A command-line Kevin Bacon game implemented in Java for Dartmouth CS 10.
-The program models actors as vertices and connects two actors when they
-appeared in the same movie. It can find shortest actor-to-actor paths,
-inspect disconnected actors, and compare how centrally connected actors are.
+This repository contains both an interactive browser-based actor connection
+explorer and a Java command-line graph project. Both use the included
+actor-and-film dataset to find shortest co-star paths.
+
+## Start here
+
+- **Try the live web explorer:** [Kevin Bacon Graph Explorer](https://darhian22.github.io/kevbacongame/)
+- **Run it locally:** clone or download this repository, then follow the
+  [web explorer instructions](#interactive-web-explorer). All code and data
+  needed by the explorer are in this repository; no separate project is
+  required.
+- **Explore the Java project:** follow [Build and run](#build-and-run) below.
+
+In the web explorer, choose two actor names from the suggestions to see their
+shortest connection, the films shared along the route, and original abstract
+film illustrations. The default example connects Kevin Bacon and Tom Hanks.
+
+The browser interface was inspired by the visual approach of my separate
+Connection Atlas prototype, but this explorer applies it to the actor-and-film
+graph and dataset in this repository. The Java command-line game remains
+available as a separate way to query the graph.
+
+## Java graph project
+
+The Java program models actors as vertices and connects two actors when they
+appeared in the same movie. It can find shortest actor-to-actor paths, inspect
+disconnected actors, and compare how centrally connected actors are.
 
 ## How it works
 
@@ -69,27 +92,22 @@ the applicable course policies.
 
 ## Interactive web explorer
 
-The repository also includes a browser-based route explorer inspired by the
-visual approach in my separate Connection Atlas prototype. It applies that
-interaction to this actor-and-film graph: enter two actor names to see the
-shortest co-star path, with each shared film shown on the highlighted route.
-This front end reads the same pipe-delimited files as the Java program and
-reimplements breadth-first search in browser JavaScript; the Java CLI remains
-available separately.
+The [live explorer](https://darhian22.github.io/kevbacongame/) is hosted with
+GitHub Pages. To run the same app locally, start the server from the repository
+root:
 
 The web explorer includes a Kevin Bacon portrait credited under CC BY 2.0 and
 original abstract SVG title-card illustrations for films on the selected path.
 The illustrations are not movie posters or stills; see [`web/ASSETS.md`](web/ASSETS.md)
 for attribution and asset details.
 
-From the repository root, start a local static web server:
-
 ```sh
 python3 -m http.server 8000
 ```
 
-Then open `http://localhost:8000/web/`. Use the browser's actor-name
-suggestions to select names from the dataset.
+Then open <http://localhost:8000/web/>. The app loads `actors.txt`,
+`movies.txt`, and `movie-actors.txt` from the repository root; use the
+actor-name suggestions to select valid names.
 
 ## Commands
 
